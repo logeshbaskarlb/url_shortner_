@@ -2,19 +2,20 @@ import React from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useFormik } from "formik";
 import axios from "axios";
-import { config } from "../Components/Config/Config";
+import { config } from "../Config/Config";
 import { useDispatch, useSelector } from "react-redux";
-import { setLoading, setShowPassword } from "../Components/Reducer/UserReducer";
+import { setLoading, setShowPassword } from "../Reducer/UserReducer";
 import { toast } from "react-toastify";
 import { EyeFill, EyeSlashFill } from "react-bootstrap-icons";
-import LoadingPage from "./LoadingPage";
+import Loading from "../Loading/Loading";
 
 const ResetPassword = () => {
-
   const params = useParams();
   const navigate = useNavigate();
   const { showPassword, loading } = useSelector((state) => state.users);
   const dispatch = useDispatch();
+
+  
   const formik = useFormik({
     initialValues: {
       password: "",
@@ -155,7 +156,7 @@ const ResetPassword = () => {
           )}
           <div className=" text-center m-3"> 
           <button className="btn btn-dark btn-user btn-block text-center" type="submit">
-            {loading ? <LoadingPage /> : "Submit"}
+            {loading ? <Loading /> : "Submit"}
           </button>
           </div>
         </form>

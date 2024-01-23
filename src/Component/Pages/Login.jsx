@@ -3,10 +3,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { EyeFill, EyeSlashFill } from "react-bootstrap-icons";
 import { useDispatch, useSelector } from "react-redux";
-import { setLoading, setShowPassword } from "./Reducer/UserReducer";
-import LoadingPage from "./LoadingPage";
+import { setLoading, setShowPassword } from "../Reducer/UserReducer";
+import Loading from "../Loading/Loading";
 import { toast } from "react-toastify";
-import { isAuthenticated , login } from "./Protect/AuthService";
+import { isAuthenticated , login } from "../Protect/AuthService";
 
 function Login() {
   const { showPassword, loading } = useSelector((state) => state.users);
@@ -132,14 +132,14 @@ function Login() {
               className="btn text-white text-center bg-black btn-user"
               type="submit"
             >
-              {loading ? <LoadingPage /> : "Login"}
+              {loading ? <Loading /> : "Login"}
             </button>
           </div>
         </form>
         <div className="text-center mt-3 hover">
           <Link
             className="text-decoration-none text-dark "
-            to={"/forgot-password"}
+            to={"/forget-password"}
           >
             Forgot Password?
           </Link>

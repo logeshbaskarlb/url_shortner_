@@ -3,11 +3,13 @@ import React from "react";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { setLoading } from "./Reducer/UserReducer";
+import { setLoading } from "../Reducer/UserReducer";
 import { toast } from "react-toastify";
-import LoadingPage from "./LoadingPage";
-import { config } from "./Config/Config";
-import "./Login.css";
+import Loading from "../Loading/Loading";
+import { config } from "../Config/Config";
+
+
+
 function ForgetPassword() {
   const { loading } = useSelector((state) => state.users);
   const dispatch = useDispatch();
@@ -33,7 +35,7 @@ function ForgetPassword() {
       try {
         dispatch(setLoading(true));
         const response = await axios.post(
-          `${config.userApi}/forgot-password`,
+          `${config.userApi}/forget-password`,
           values
         );
         console.log(response);
@@ -91,7 +93,7 @@ function ForgetPassword() {
             className="btn btn-dark btn-user btn-block mx-5 mt-3 text-center"
             type="submit"
           >
-            {loading ? <LoadingPage /> : "Reset Password"}
+            {loading ? <Loading /> : "Reset Password"}
           </button>
         </form>
         <hr />

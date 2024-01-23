@@ -1,3 +1,3 @@
 export const config = {
-    userApi: ''
+    userApi: 'http://localhost:4000'
 }

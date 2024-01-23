@@ -1,15 +1,17 @@
-import { React } from "react";
+import { React, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { config } from "../Components/Config/Config";
+import { config } from "../Config/Config";
 import { useDispatch, useSelector } from "react-redux";
-import { setLoading, setShowPassword } from "./Reducer/UserReducer";
+import { setLoading, setShowPassword } from "../Reducer/UserReducer";
 import { EyeFill, EyeSlashFill } from "react-bootstrap-icons";
-import LoadingPage from "./LoadingPage";
+import Loading from "../Loading/Loading";
+
 
 function Register() {
+  const [errorMessage, setErrorMessage] = useState("");
   const { showPassword, loading } = useSelector((state) => state.users);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -41,7 +43,8 @@ function Register() {
     onSubmit: async (values) => {
       try {
         dispatch(setLoading(true));
-        const response = await axios.post(`${config.userApi}/register`, values);
+        const response = await axios.post(
+        `${config.userApi}/register`, values);
         if (response.status === 201) {
           toast.success(response.data.message, {
             position: "top-center",
@@ -51,7 +54,7 @@ function Register() {
         formik.resetForm();
       } catch (error) {
         console.error("Error during registration:", error.response?.data || error.message);
-        toast.error("Error during registration. Please try again.", {
+        setErrorMessage("Error during registration. Please try again.", {
       position: "top-center",
     });
       } finally {
@@ -69,6 +72,9 @@ function Register() {
           </div>
           <form action="" className="user" 
            onSubmit={formik.handleSubmit}>
+             <span className="d-block ms-3 text-danger small invalid-feedback">
+    {errorMessage}
+  </span>
             <div className="mb-3">
               <label htmlFor="exampleInputName" className="form-label">
                 Name :
@@ -118,7 +124,7 @@ function Register() {
               <label htmlFor="exampleInputPassword1" className="form-label">
                 Password :
               </label>
-              <input
+              <input 
                 name="password"
                 type={showPassword ? "text" : "password"}
                 className={`form-control form-control-user ${
@@ -161,14 +167,14 @@ function Register() {
               className="btn btn-dark btn-user btn-block d-flex justify-content-center"
               type="submit"
             >
-              {loading ? <LoadingPage /> : " Register Account"}
+              {loading ? <Loading /> : " Register Account"}
             </button> 
             </div>
           </form>
           <div className="text-center mt-3 hover">
             <Link
               className="text-decoration-none text-dark"
-              to={"/forgot-password"}
+              to={"/forget-password"}
             >
               Forgot Password?
             </Link>

@@ -4,7 +4,8 @@ const UserSlice = createSlice({
     name: 'users',
     initialState: {
         loading:false,
-        showPassword:false
+        showPassword:false,
+        generatePage :false
     },
     reducers: {
         setLoading:(state,action)=>{
@@ -12,9 +13,13 @@ const UserSlice = createSlice({
         },
         setShowPassword:(state,action)=>{
             state.showPassword = action.payload;
-          }
+        },
+        setGeneratePage:(state,action)=>{
+          state.generatePage =  action.payload;
+    
+        }
     },
     
 });
-export const {setLoading,setShowPassword} =  UserSlice.actions
+export const {setLoading,setShowPassword,setGeneratePage} =  UserSlice.actions
 export default UserSlice.reducer;

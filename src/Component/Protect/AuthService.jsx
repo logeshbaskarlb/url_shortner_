@@ -7,12 +7,18 @@ try {
   const response = await axios.post
   (`${config.userApi}/login`,values)
   console.log(response);
-  if(response.status === 200){
-    localStorage.setItem("token",response.data.token);
+
+  if(!response || !response.data){
+    throw new Error("Invalid response recieved");
   }
-  return response;
+
+  if(response.data.isActivated === false){
+    throw new Error(response.data.message);
+  }
+  localStorage.setItem("token",response.data.token);
+
 } catch (error) {
-  throw new Error(error.response.data.message);
+  throw new Error(error.response?.data?.message || "Please activate your account" );
 }  
 };
 
