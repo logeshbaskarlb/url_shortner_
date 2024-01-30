@@ -129,7 +129,7 @@ function Login() {
           )}
           <div className="text-center">
             <button
-              className="btn text-white text-center bg-black btn-user"
+              className="btn btn-user bg-dark text-white"
               type="submit"
             >
               {loading ? <Loading /> : "Login"}
